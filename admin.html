@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baker Dashboard | Sweet Bites Arifwala</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Style Link -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body">
+
+  <!-- ADMIN NAVIGATION HEADER -->
+  <header class="admin-header">
+    <div class="admin-navbar">
+      <a href="index.html" class="logo-container" style="text-decoration: none;">
+        <img src="assets/logo.png" alt="Sweet Bites Logo" class="logo-img" style="height: 75px;">
+        <div class="logo-text" style="color: #fff; font-size: 1.3rem;">
+          Sweet Bites
+          <span style="color: #dfb257; font-size: 0.75rem; letter-spacing: 1px;">Baker Admin</span>
+        </div>
+      </a>
+      <div class="admin-nav-right">
+        <a href="index.html" style="color: #dfb257; text-decoration: none; font-size: 0.9rem;" target="_blank">
+          <i class="fas fa-external-link-alt"></i> View Website
+        </a>
+        <button id="logout-btn" class="btn-cancel" style="display: none; padding: 6px 12px; font-size: 0.85rem;">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DASHBOARD CONTAINER -->
+  <main class="admin-container">
+
+    <!-- 1. LOGIN INTERFACE -->
+    <div class="admin-login-wrapper" id="login-box">
+      <h3 class="admin-login-title"><i class="fas fa-lock"></i> Baker Access Login</h3>
+      <div class="divider" style="margin: 0 auto 15px auto;"></div>
+      <p style="text-align: center; color: #8c7365; font-size: 0.9rem;">Please enter your secret 4-digit PIN to access product controls.</p>
+      
+      <div class="admin-login-form">
+        <label for="admin-pin" style="display: block; font-size: 0.8rem; font-weight: 600; color: #5c4335; margin-bottom: 5px;">SECRET PIN</label>
+        <input type="password" id="admin-pin" maxlength="4" placeholder="••••" style="text-align: center; letter-spacing: 10px; font-size: 1.5rem;">
+        <div id="login-error" style="color: #e07a7a; font-size: 0.85rem; text-align: center; margin-top: -10px; margin-bottom: 15px; display: none;">
+          Incorrect PIN. Please try again!
+        </div>
+        <button id="login-submit-btn"><i class="fas fa-unlock-alt"></i> Unlock Dashboard</button>
+      </div>
+    </div>
+
+    <!-- 2. MAIN ADMIN DASHBOARD SYSTEM -->
+    <div class="admin-dashboard-view" id="dashboard-system">
+      
+      <!-- STATS DISPLAY GRID -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="admin-stat-info">
+            <h5>Total Cake Designs</h5>
+            <p id="stat-total">0</p>
+          </div>
+          <div class="admin-stat-icon"><i class="fas fa-birthday-cake"></i></div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-info">
+            <h5>Free Delivery Area</h5>
+            <p style="font-size: 1.6rem; font-weight: 700; color: var(--chocolate-deep); font-family: var(--font-serif); margin-top: 5px;">Arifwala City</p>
+          </div>
+          <div class="admin-stat-icon"><i class="fas fa-truck"></i></div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-info">
+            <h5>Candles Special Offer</h5>
+            <p style="font-size: 1.6rem; font-weight: 700; color: var(--chocolate-deep); font-family: var(--font-serif); margin-top: 5px;">Free Candles</p>
+          </div>
+          <div class="admin-stat-icon"><i class="fas fa-fire"></i></div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS TABLE SECTION -->
+      <div class="admin-table-section">
+        <div class="admin-table-header">
+          <h3>Products Management</h3>
+          <div style="display: flex; gap: 10px;">
+            <button id="reset-defaults-btn" class="btn-cancel" style="background: #eedfd2; color: #8c2626;"><i class="fas fa-history"></i> Reset Default Items</button>
+            <button id="open-add-modal-btn" class="btn-add"><i class="fas fa-plus"></i> Add New Product</button>
+          </div>
+        </div>
+
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Title / Product Name</th>
+                <th>Category</th>
+                <th>Flavour / Variant</th>
+                <th>Price (PKR)</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-product-rows">
+              <!-- JS code will pop dynamic data rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- GENERAL SETTINGS SECTION -->
+      <div class="admin-table-section" style="margin-top: 40px; border-top: 1px solid rgba(223, 178, 87, 0.15);">
+        <div class="admin-table-header">
+          <h3>Store Settings & Social Links</h3>
+        </div>
+
+        <form id="settings-form">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div class="admin-form-group">
+              <label for="settings-whatsapp">WhatsApp Business Number</label>
+              <input type="text" id="settings-whatsapp" placeholder="e.g. 923001234567" required>
+              <span style="font-size: 0.75rem; color: #8c7365;">Must start with country code (e.g. 92) and no + sign.</span>
+            </div>
+            
+            <div class="admin-form-group">
+              <label for="settings-instagram">Instagram Profile Link</label>
+              <input type="url" id="settings-instagram" placeholder="e.g. https://instagram.com/profile">
+            </div>
+
+            <div class="admin-form-group">
+              <label for="settings-facebook">Facebook Page Link</label>
+              <input type="url" id="settings-facebook" placeholder="e.g. https://facebook.com/page">
+            </div>
+
+            <div class="admin-form-group">
+              <label for="settings-tiktok">TikTok Account Link</label>
+              <input type="url" id="settings-tiktok" placeholder="e.g. https://tiktok.com/@username">
+            </div>
+          </div>
+          
+          <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+            <button type="submit" class="btn-add"><i class="fas fa-save"></i> Save Settings</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ADD / EDIT PRODUCT MODAL FORM -->
+  <div class="admin-modal" id="product-modal">
+    <div class="admin-modal-content">
+      <div class="admin-modal-header">
+        <h4 id="modal-title">Add New Product</h4>
+        <span class="admin-modal-close" id="close-modal-btn">&times;</span>
+      </div>
+
+      <form id="product-form">
+        <!-- Hidden input for identifying active edits -->
+        <input type="hidden" id="form-product-id">
+
+        <div class="admin-form-group">
+          <label for="form-title">Product Name / Title</label>
+          <input type="text" id="form-title" placeholder="e.g. Red Velvet Cream Cake" required>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="form-category">Category</label>
+          <select id="form-category" required>
+            <option value="cakes">Cakes</option>
+            <option value="bouquets">Flower Bouquets</option>
+          </select>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="form-price">Price (PKR)</label>
+          <input type="number" id="form-price" placeholder="e.g. 2500" required min="0">
+        </div>
+
+        <div class="admin-form-group">
+          <label for="form-flavour">Flavor Preference</label>
+          <input type="text" id="form-flavour" placeholder="e.g. Dark Fudge / Lotus Biscoff">
+        </div>
+
+        <div class="admin-form-group">
+          <label for="form-lead">Lead Time / Booking Period</label>
+          <input type="text" id="form-lead" placeholder="e.g. 2 Days / 1 Day" required>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="form-desc">Short Description</label>
+          <textarea id="form-desc" placeholder="Details of ingredients, slices, tiers, sizing..." required style="height: 80px; resize: vertical;"></textarea>
+        </div>
+
+        <!-- IMAGE HANDLING GRID -->
+        <div class="admin-form-group">
+          <label>Product Image Source</label>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="text" id="form-image-url" placeholder="Paste image URL (Optional)">
+            <p style="text-align: center; color: #8c7365; margin: 0; font-size: 0.8rem;">— OR —</p>
+            <input type="file" id="form-image-file" accept="image/*">
+          </div>
+          <div class="image-preview-box" id="preview-box">
+            <span>No Image Selected</span>
+          </div>
+        </div>
+
+        <div class="admin-form-actions">
+          <button type="button" class="btn-cancel" id="cancel-form-btn">Cancel</button>
+          <button type="submit" class="btn-add" id="submit-form-btn">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin JS Engine script -->
+  <script src="admin.js"></script>
+</body>
+</html>

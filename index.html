@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweet Bites Arifwala | Premium Custom Cakes & Luxury Bakery</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Discover Sweet Bites Arifwala, the best premium home baker in Arifwala. Order customized fondant cakes, gooey fudge brownies, gourmet cookies, and artisan sourdough bread. Freshly baked with love.">
+  <meta name="keywords" content="custom cakes arifwala, sweet bites arifwala, best bakery in arifwala, home baker arifwala, wedding cakes arifwala, chocolate brownies arifwala, custom fondant cakes">
+  <meta name="author" content="Sweet Bites Arifwala">
+  
+  <!-- Open Graph Meta Tags (Facebook / WhatsApp sharing) -->
+  <meta property="og:title" content="Sweet Bites Arifwala | Custom Cakes & Luxury Bakery">
+  <meta property="og:description" content="Order premium custom cakes, cookies, and gourmet brownies in Arifwala. Freshly baked by your local favorite home baker.">
+  <meta property="og:image" content="assets/logo.png">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Style Link -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Schema.org Structured Data for Local SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Bakery",
+    "name": "Sweet Bites Arifwala",
+    "image": "assets/logo.png",
+    "@id": "https://sweetbitesarifwala.com",
+    "url": "https://sweetbitesarifwala.com",
+    "telephone": "+923001234567",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Main Bazaar",
+      "addressLocality": "Arifwala",
+      "addressRegion": "Punjab",
+      "postalCode": "57130",
+      "addressCountry": "PK"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "09:00",
+      "closes": "21:00"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Background Sparks/Particles Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="app-content">
+
+    <!-- Header Navigation -->
+    <header id="main-header">
+      <div class="navbar">
+        <a href="#home" class="logo-container">
+          <img src="assets/logo.png" alt="Sweet Bites Arifwala Logo" class="logo-img" id="nav-logo">
+          <div class="logo-text">
+            Sweet Bites
+            <span>Arifwala</span>
+          </div>
+        </a>
+        
+        <div class="menu-toggle" id="mobile-menu-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Custom Cakes</a></li>
+          <li><a href="#bouquets">Bouquets</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li class="nav-socials" style="display: flex; gap: 12px; margin: 0 10px;">
+            <a href="#" id="nav-link-instagram" target="_blank" aria-label="Instagram" style="padding: 5px; color: var(--rose-accent);"><i class="fab fa-instagram"></i></a>
+            <a href="#" id="nav-link-facebook" target="_blank" aria-label="Facebook" style="padding: 5px; color: var(--rose-accent);"><i class="fab fa-facebook"></i></a>
+            <a href="#" id="nav-link-tiktok" target="_blank" aria-label="TikTok" style="padding: 5px; color: var(--rose-accent);"><i class="fab fa-tiktok"></i></a>
+          </li>
+          <li><a href="#order" class="btn-order-nav">Order Now</a></li>
+          <li>
+            <div id="nav-customer-area" style="display:flex; align-items:center;">
+              <button id="nav-login-btn" onclick="openCustomerLoginModal()" style="background:transparent; border:1.5px solid var(--rose-accent); color:var(--rose-accent); padding:8px 18px; border-radius:20px; font-weight:600; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; gap:6px;">
+                <i class="fas fa-user"></i> Login
+              </button>
+              <div id="nav-user-badge" style="display:none; align-items:center; gap:10px;">
+                <i class="fas fa-user-circle" style="color:var(--gold-primary); font-size:1.3rem;"></i>
+                <span id="nav-user-name" style="font-weight:600; color:var(--text-light); font-size:0.9rem;"></span>
+                <button onclick="customerLogout()" style="background:transparent; border:none; color:var(--rose-accent); cursor:pointer; font-size:0.8rem; padding:4px 8px; border-radius:10px; border:1px solid var(--rose-accent);">Logout</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 5px;">
+            <span class="badge" style="border-color: var(--rose-accent); color: var(--rose-accent);">🎂 Custom Cakes Only</span>
+            <span class="badge" style="background: rgba(223, 178, 87, 0.1); border-color: var(--gold-primary); color: var(--gold-primary);"><i class="fas fa-truck"></i> Free Delivery in Arifwala</span>
+            <span class="badge" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255,255,255,0.3);"><i class="fas fa-fire"></i> Free Candles</span>
+            <span class="badge" style="background: rgba(180, 130, 130, 0.15); border-color: var(--rose-accent);"><i class="fas fa-seedling"></i> Flower Bouquets</span>
+            <span class="badge" style="background: rgba(223, 178, 87, 0.05); border-color: var(--gold-primary);"><i class="fas fa-gift"></i> Custom Gift Packing</span>
+          </div>
+          <h2 class="gold-text">Crafting Your Dream Custom Cakes</h2>
+          <p>We specialize exclusively in baking premium, 100% customized cakes in Arifwala. Send us your theme, design, or flavor preference, and we will craft the perfect edible art for your special day. Free delivery inside Arifwala and candles are on us!</p>
+          <div class="hero-buttons">
+            <a href="#menu" class="btn-primary">Explore Cakes</a>
+            <a href="#order" class="btn-secondary">Design Custom Cake</a>
+          </div>
+        </div>
+        <div class="hero-slider-container">
+          <div class="hero-slide active">
+            <img src="assets/birthday_cake.png" alt="Luxury Custom Birthday Cake">
+            <div class="slide-caption">Luxury Birthday Cakes</div>
+          </div>
+          <div class="hero-slide">
+            <img src="assets/wedding_cake.png" alt="Floral Custom Wedding Cake">
+            <div class="slide-caption">Elegant Wedding Creations</div>
+          </div>
+          <div class="hero-slide">
+            <img src="assets/custom_cake.png" alt="Novelty Custom Fondant Cake">
+            <div class="slide-caption">Fondant Theme Masterpieces</div>
+          </div>
+          
+          <!-- Slider Controls -->
+          <div class="slider-nav">
+            <span class="slider-nav-dot active" onclick="setHeroSlide(0)"></span>
+            <span class="slider-nav-dot" onclick="setHeroSlide(1)"></span>
+            <span class="slider-nav-dot" onclick="setHeroSlide(2)"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+      <div class="about-grid">
+        <div class="about-img-container">
+          <img src="assets/baker_about.png" alt="Home baker decorating cake in Arifwala" class="about-img">
+          <div class="about-img-overlay">
+            <h3>Baking with Passion</h3>
+            <p>Every cake tells a beautiful, custom story.</p>
+          </div>
+        </div>
+        <div class="about-text">
+          <span class="badge">Our Story</span>
+          <h3>Specializing Exclusively in Tailor-Made Cakes</h3>
+          <div class="divider"></div>
+          <p>Welcome to Sweet Bites Arifwala! We believe that your celebrations deserve a centerpiece that is as unique as you are. That is why we focus 100% of our energy on creating customized cakes. No generic templates, no mass production—every cake is baked fresh to order using premium quality ingredients and your custom references.</p>
+          <p>We take pride in our detail-oriented fondant sculptures, smooth buttercream drips, and rich taste profiles. To make your celebration even sweeter, we offer free home delivery inside Arifwala city, and we include free candles with every customized cake order!</p>
+          
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-num">500+</div>
+              <div class="stat-lbl">Custom Designs</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">Free</div>
+              <div class="stat-lbl">Delivery & Candles</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Menu Section -->
+    <section class="menu" id="menu">
+      <div class="section-header">
+        <span class="badge">Our Templates</span>
+        <h2>Explore Customized Creations</h2>
+        <div class="divider"></div>
+        <p>Browse through our popular customized cake categories. All cakes are priced per pound. Free delivery inside Arifwala city and candles are included with every single cake order!</p>
+      </div>
+
+      <div class="products-grid" id="shop-grid">
+        <!-- Products will load dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- Flower Bouquets Section -->
+    <section class="menu" id="bouquets" style="border-top: 1px solid rgba(223, 178, 87, 0.1);">
+      <div class="section-header">
+        <span class="badge">Floral Add-ons</span>
+        <h2>Fresh Flower Bouquets</h2>
+        <div class="divider"></div>
+        <p>Send a stunning bouquet of fresh flowers alongside your customized cake! Choose a premium florist arrangement below. Free delivery in Arifwala city.</p>
+      </div>
+
+      <div class="products-grid" id="bouquets-grid">
+        <!-- Bouquets will load dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="gallery" id="gallery">
+      <div class="section-header">
+        <span class="badge">Edible Art</span>
+        <h2>Our Creations Gallery</h2>
+        <div class="divider"></div>
+        <p>Take a look at some of the custom cakes and premium bakery items we have prepared for our amazing customers.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="assets/birthday_cake.png" alt="Luxury Birthday Cake">
+          <div class="gallery-overlay">
+            <h4>Luxury Birthday Cake</h4>
+            <p>Cakes</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="assets/wedding_cake.png" alt="Elegant Symmetrical Wedding Cake">
+          <div class="gallery-overlay">
+            <h4>Floral Wedding Cake</h4>
+            <p>Cakes</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="assets/cookies_box.png" alt="Gourmet Cookie Collection">
+          <div class="gallery-overlay">
+            <h4>Gourmet Cookie Box</h4>
+            <p>Cookies & Brownies</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="assets/fudge_brownies.png" alt="Fudge Chocolate Brownies">
+          <div class="gallery-overlay">
+            <h4>Classic Fudge Brownies</h4>
+            <p>Cookies & Brownies</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="assets/custom_cake.png" alt="Special Theme Custom Cake">
+          <div class="gallery-overlay">
+            <h4>Figurines Custom Cake</h4>
+            <p>Cakes</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="assets/artisan_bread.png" alt="Country Sourdough Bread">
+          <div class="gallery-overlay">
+            <h4>Artisan Sourdough Loaf</h4>
+            <p>Pastries & Bread</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Custom WhatsApp Order Form -->
+    <section class="order-section" id="order">
+      <div class="section-header">
+        <span class="badge">Book Now</span>
+        <h2>Order or Custom Request</h2>
+        <div class="divider"></div>
+        <p>Need a custom cake for a wedding, birthday, or party? Fill in the form and place your order directly via WhatsApp.</p>
+      </div>
+
+      <div class="order-container">
+        <form id="whatsapp-order-form">
+          <div class="order-form-grid">
+            <div class="form-group">
+              <label for="order-name">Your Name</label>
+              <input type="text" id="order-name" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="order-whatsapp">WhatsApp Number</label>
+              <input type="tel" id="order-whatsapp" placeholder="e.g. 03001234567" required>
+            </div>
+
+            <div class="form-group">
+              <label for="order-item-type">Custom Cake Type</label>
+              <select id="order-item-type" required>
+                <option value="" disabled selected>Select cake type</option>
+                <option value="Custom Fondant Theme Cake">Custom Fondant Theme Cake</option>
+                <option value="Cream & Custom Drip Cake">Cream & Custom Drip Cake</option>
+                <option value="Multi-Tier Symmetrical Cake">Multi-Tier Symmetrical Cake</option>
+                <option value="Novelty Birthday Cake">Novelty Birthday Cake</option>
+                <option value="Other / Reference Design">Other Reference Design</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="order-weight">Weight (Pounds)</label>
+              <select id="order-weight" required>
+                <option value="" disabled selected>Select weight</option>
+                <option value="1 Pound (Small)">1 Pound (Small)</option>
+                <option value="2 Pounds (Standard)">2 Pounds (Standard)</option>
+                <option value="3 Pounds">3 Pounds</option>
+                <option value="4 Pounds">4 Pounds</option>
+                <option value="5+ Pounds (Large Event)">5+ Pounds (Large Event)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="order-flavor">Cake Flavor Preferences</label>
+              <select id="order-flavor" required>
+                <option value="Classic Chocolate Fudge">Classic Chocolate Fudge</option>
+                <option value="Red Velvet Cream Cheese">Red Velvet Cream Cheese</option>
+                <option value="Lotus Biscoff Cream">Lotus Biscoff Cream</option>
+                <option value="Vanilla Caramel Drip">Vanilla Caramel Drip</option>
+                <option value="Cookies & Cream OREO">Cookies & Cream OREO</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="order-date">Delivery Date</label>
+              <input type="date" id="order-date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="order-flowers">Add Flower Bouquet?</label>
+              <select id="order-flowers" required>
+                <option value="No Bouquet" selected>No, only cake</option>
+                <option value="Add Fresh Flower Bouquet">Yes, add a Fresh Flower Bouquet (+ charges)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="order-packing">Special Gift Packaging?</label>
+              <select id="order-packing" required>
+                <option value="Standard Cardboard Box" selected>Standard Cake Box (Free)</option>
+                <option value="Premium Custom Gift Box">Yes, Premium Custom Gift Box (+ charges)</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="order-details">Customization Details / Message on Cake</label>
+              <textarea id="order-details" placeholder="Describe your theme, color choices, wording to write on cake, or any allergies..."></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary btn-form-submit">
+            <i class="fab fa-whatsapp"></i> Send Order details to WhatsApp
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <div class="section-header">
+        <span class="badge">Love & Reviews</span>
+        <h2>What Our Clients Say</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="testimonials-slider">
+        <div class="testimonial-slide active">
+          <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">"The birthday cake we ordered was absolutely gorgeous! It wasn't just beautiful, the chocolate fudge flavor was so rich and moist. Everyone in Arifwala loved it!"</p>
+          <div class="testimonial-author">
+            Ayesha Khan
+            <span>Arifwala Customer</span>
+          </div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">"Sweet Bites makes the best brownies! The fudge center is incredibly gooey and chocolatey. Their cookies are a weekly regular treat in our family."</p>
+          <div class="testimonial-author">
+            Zainab Ali
+            <span>Local Foodie</span>
+          </div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">"Highly professional home baking. I requested a custom customized themed cake for my daughter's wedding. Excellent decoration details and taste was perfect!"</p>
+          <div class="testimonial-author">
+            Dr. Yasir
+            <span>Arifwala Resident</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-dots" id="dots-container">
+        <span class="slider-dot active" onclick="setSlide(0)"></span>
+        <span class="slider-dot" onclick="setSlide(1)"></span>
+        <span class="slider-dot" onclick="setSlide(2)"></span>
+      </div>
+    </section>
+
+    <!-- Lightbox Modal DOM -->
+    <div id="gallery-lightbox" class="lightbox" onclick="closeLightbox()">
+      <span class="lightbox-close">&times;</span>
+      <div class="lightbox-content" onclick="event.stopPropagation()">
+        <img id="lightbox-img" src="" alt="Zoomed view">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+      </div>
+    </div>
+
+    <!-- Quick Order Calculator Modal DOM -->
+    <div id="quick-order-modal" class="order-modal" onclick="closeQuickOrderModal()">
+      <div class="order-modal-content" onclick="event.stopPropagation()">
+        <div class="order-modal-header">
+          <h3 id="qom-title">Place Order</h3>
+          <span class="order-modal-close" onclick="closeQuickOrderModal()">&times;</span>
+        </div>
+        <div class="order-modal-body">
+          <h4 id="qom-product-name" style="color: var(--text-light); font-size: 1.2rem; font-family: var(--font-sans); font-weight: 600;">Product Title</h4>
+          <p id="qom-product-desc" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;"></p>
+          
+          <div class="form-group">
+            <label id="qom-qty-label" for="qom-qty">Select Weight / Quantity</label>
+            <select id="qom-qty" onchange="updateQuickOrderTotal()"></select>
+          </div>
+
+          <div class="order-modal-total">
+            Total Price: <span id="qom-total-price">Rs. 0</span>
+          </div>
+
+          <button class="btn-primary" onclick="submitQuickOrderModal()" style="width: 100%;">
+            <i class="fab fa-whatsapp"></i> Order on WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== CUSTOMER LOGIN / SIGNUP MODAL ========== -->
+    <div id="customer-auth-modal" class="order-modal" onclick="closeCustomerLoginModal()">
+      <div class="order-modal-content" onclick="event.stopPropagation()" style="max-width:480px; padding:0; overflow:hidden;">
+        
+        <!-- Modal Header Tabs -->
+        <div style="display:flex; border-bottom:2px solid var(--cream-bg);">
+          <button id="tab-login" onclick="switchAuthTab('login')" style="flex:1; padding:18px; background:var(--gold-primary); color:var(--text-light); border:none; font-weight:700; font-size:1rem; cursor:pointer; font-family:var(--font-sans); transition:var(--transition-smooth);">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+          <button id="tab-signup" onclick="switchAuthTab('signup')" style="flex:1; padding:18px; background:var(--cream-bg); color:var(--text-muted); border:none; font-weight:600; font-size:1rem; cursor:pointer; font-family:var(--font-sans); transition:var(--transition-smooth);">
+            <i class="fas fa-user-plus"></i> Sign Up
+          </button>
+          <button onclick="closeCustomerLoginModal()" style="padding:18px 20px; background:transparent; border:none; color:var(--text-muted); font-size:1.4rem; cursor:pointer;">&times;</button>
+        </div>
+
+        <div style="padding:35px;">
+          <!-- Welcome Text -->
+          <div style="text-align:center; margin-bottom:25px;">
+            <img src="assets/logo.png" style="height:60px; margin-bottom:10px;">
+            <p style="color:var(--text-muted); font-size:0.9rem;" id="auth-subtitle">Welcome back! Login to track your orders.</p>
+          </div>
+
+          <!-- Error/Success Message -->
+          <div id="auth-message" style="display:none; padding:10px 15px; border-radius:6px; margin-bottom:15px; font-size:0.9rem; text-align:center;"></div>
+
+          <!-- LOGIN FORM -->
+          <form id="login-form" onsubmit="handleCustomerLogin(event)">
+            <div class="form-group" style="margin-bottom:15px;">
+              <label for="login-email"><i class="fas fa-envelope"></i> Email Address</label>
+              <input type="email" id="login-email" placeholder="aapki@email.com" required>
+            </div>
+            <div class="form-group" style="margin-bottom:20px;">
+              <label for="login-password"><i class="fas fa-lock"></i> Password</label>
+              <input type="password" id="login-password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%; justify-content:center; display:flex; align-items:center; gap:8px;">
+              <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <p style="text-align:center; margin-top:15px; font-size:0.85rem; color:var(--text-muted);">
+              Account nahi hai? <a href="#" onclick="switchAuthTab('signup')" style="color:var(--gold-primary); font-weight:600;">Sign Up karein</a>
+            </p>
+          </form>
+
+          <!-- SIGNUP FORM -->
+          <form id="signup-form" style="display:none;" onsubmit="handleCustomerSignup(event)">
+            <div class="form-group" style="margin-bottom:15px;">
+              <label for="signup-name"><i class="fas fa-user"></i> Full Name</label>
+              <input type="text" id="signup-name" placeholder="Aapka naam" required>
+            </div>
+            <div class="form-group" style="margin-bottom:15px;">
+              <label for="signup-phone"><i class="fas fa-phone"></i> WhatsApp Number</label>
+              <input type="tel" id="signup-phone" placeholder="e.g. 03001234567" required>
+            </div>
+            <div class="form-group" style="margin-bottom:15px;">
+              <label for="signup-email"><i class="fas fa-envelope"></i> Email Address</label>
+              <input type="email" id="signup-email" placeholder="aapki@email.com" required>
+            </div>
+            <div class="form-group" style="margin-bottom:20px;">
+              <label for="signup-password"><i class="fas fa-lock"></i> Password banayein</label>
+              <input type="password" id="signup-password" placeholder="Minimum 6 characters" required minlength="6">
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%; justify-content:center; display:flex; align-items:center; gap:8px;">
+              <i class="fas fa-user-plus"></i> Account Banayein
+            </button>
+            <p style="text-align:center; margin-top:15px; font-size:0.85rem; color:var(--text-muted);">
+              Pehle se account hai? <a href="#" onclick="switchAuthTab('login')" style="color:var(--gold-primary); font-weight:600;">Login karein</a>
+            </p>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CUSTOMER PROFILE PANEL (slide-in from right) -->
+    <div id="customer-profile-panel" style="position:fixed; top:0; right:-420px; width:420px; height:100vh; background:#fff; z-index:3000; box-shadow:-10px 0 40px rgba(54,31,20,0.12); transition:right 0.4s cubic-bezier(0.16,1,0.3,1); overflow-y:auto;">
+      <div style="background:linear-gradient(135deg, var(--text-light) 0%, var(--text-muted) 100%); padding:35px 30px; color:#fff; position:relative;">
+        <button onclick="closeProfilePanel()" style="position:absolute; top:15px; right:15px; background:rgba(255,255,255,0.2); border:none; color:#fff; width:35px; height:35px; border-radius:50%; font-size:1.1rem; cursor:pointer;">&times;</button>
+        <i class="fas fa-user-circle" style="font-size:3.5rem; opacity:0.9; margin-bottom:10px; display:block;"></i>
+        <h3 id="profile-name" style="font-family:var(--font-serif); font-size:1.6rem; margin-bottom:5px;">Customer Name</h3>
+        <p id="profile-email" style="opacity:0.8; font-size:0.9rem;"></p>
+        <p id="profile-phone" style="opacity:0.7; font-size:0.85rem; margin-top:3px;"><i class="fab fa-whatsapp"></i> </p>
+      </div>
+      <div style="padding:25px 30px;">
+        <h4 style="color:var(--text-light); font-family:var(--font-serif); margin-bottom:20px; border-bottom:2px solid var(--cream-bg); padding-bottom:10px;">🛍️ Meri Order History</h4>
+        <div id="customer-orders-list">
+          <p style="color:var(--text-muted); text-align:center; padding:30px 0; font-style:italic;">Abhi tak koi order nahi. Abhi order karein! 🍰</p>
+        </div>
+        <a href="#order" onclick="closeProfilePanel()" class="btn-primary" style="display:flex; justify-content:center; align-items:center; gap:8px; margin-top:20px; text-decoration:none;">
+          <i class="fas fa-plus"></i> Naya Order Karen
+        </a>
+        <button onclick="customerLogout()" style="width:100%; margin-top:12px; padding:12px; background:transparent; border:2px solid var(--rose-accent); color:var(--rose-accent); border-radius:4px; font-weight:600; cursor:pointer; font-size:0.9rem;">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+    <div id="profile-overlay" onclick="closeProfilePanel()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:2999;"></div>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-container">
+            <img src="assets/logo.png" alt="Sweet Bites Logo" class="logo-img">
+            <div class="logo-text">
+              Sweet Bites
+              <span style="color: var(--rose-accent);">Arifwala</span>
+            </div>
+          </div>
+          <p>Exclusively crafting premium customized cakes for your special celebrations. Delivering for free inside Arifwala city with free candles included with every order.</p>
+          <div class="footer-socials" style="display: flex; gap: 15px; margin-top: 15px;">
+            <a href="#" id="footer-link-instagram" target="_blank" aria-label="Instagram" style="color: var(--gold-primary); font-size: 1.4rem; transition: var(--transition-smooth);"><i class="fab fa-instagram"></i></a>
+            <a href="#" id="footer-link-facebook" target="_blank" aria-label="Facebook" style="color: var(--gold-primary); font-size: 1.4rem; transition: var(--transition-smooth);"><i class="fab fa-facebook"></i></a>
+            <a href="#" id="footer-link-tiktok" target="_blank" aria-label="TikTok" style="color: var(--gold-primary); font-size: 1.4rem; transition: var(--transition-smooth);"><i class="fab fa-tiktok"></i></a>
+            <a href="#" id="footer-link-whatsapp" target="_blank" aria-label="WhatsApp" style="color: var(--gold-primary); font-size: 1.4rem; transition: var(--transition-smooth);"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#menu">Our Menu</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#order">Custom Order</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>Contact & Hours</h4>
+          <div class="footer-contact-info">
+            <p><i class="fas fa-map-marker-alt"></i> Arifwala, Punjab, Pakistan</p>
+            <p id="footer-phone-text"><i class="fab fa-whatsapp"></i> +92 300 1234567</p>
+            <p><i class="far fa-clock"></i> Mon - Sun: 09:00 AM - 09:00 PM</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Sweet Bites Arifwala. All Rights Reserved.</p>
+        <p><a href="admin.html" target="_blank"><i class="fas fa-user-shield"></i> Baker Dashboard Login</a></p>
+      </div>
+    </footer>
+
+  </div>
+
+
+  
+  <!-- App JS Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
