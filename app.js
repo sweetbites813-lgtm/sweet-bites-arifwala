@@ -789,3 +789,33 @@ function saveOrderToCustomerProfile(productTitle, weight, total) {
     updateNavForCustomer(customer);
   }
 })();
+
+// --- Light / Dark Mode Toggle Logic ---
+window.toggleDarkMode = function() {
+  const body = document.body;
+  const icon = document.getElementById("theme-toggle-icon");
+  
+  body.classList.toggle("dark-mode");
+  const isDark = body.classList.contains("dark-mode");
+  
+  localStorage.setItem("sweet_bites_theme", isDark ? "dark" : "light");
+  
+  if (isDark) {
+    icon.className = "fas fa-sun";
+  } else {
+    icon.className = "far fa-moon";
+  }
+};
+
+// Restore theme preference on load
+(function restoreThemePreference() {
+  const savedTheme = localStorage.getItem("sweet_bites_theme");
+  const icon = document.getElementById("theme-toggle-icon");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    if (icon) icon.className = "fas fa-sun";
+  } else {
+    document.body.classList.remove("dark-mode");
+    if (icon) icon.className = "far fa-moon";
+  }
+})();
