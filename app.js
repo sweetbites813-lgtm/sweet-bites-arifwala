@@ -714,13 +714,28 @@ function updateNavForCustomer(customer) {
   document.getElementById("nav-login-btn").style.display = "none";
   const badge = document.getElementById("nav-user-badge");
   badge.style.display = "flex";
+  
+  // Show avatar if exists, otherwise show placeholder
+  const avatarImg = document.getElementById("nav-user-avatar");
+  const placeholderIcon = document.getElementById("nav-user-placeholder");
+  if (customer.avatar) {
+    avatarImg.src = customer.avatar;
+    avatarImg.style.display = "block";
+    placeholderIcon.style.display = "none";
+  } else {
+    avatarImg.style.display = "none";
+    placeholderIcon.style.display = "block";
+  }
+  
   // Show first name only
   const firstName = customer.name.split(" ")[0];
   document.getElementById("nav-user-name").textContent = "👋 " + firstName;
 
-  // Make name clickable to open profile
-  badge.querySelector("i").style.cursor = "pointer";
-  badge.querySelector("i").onclick = openProfilePanel;
+  // Make name/avatar clickable to open profile
+  avatarImg.style.cursor = "pointer";
+  avatarImg.onclick = openProfilePanel;
+  placeholderIcon.style.cursor = "pointer";
+  placeholderIcon.onclick = openProfilePanel;
   document.getElementById("nav-user-name").style.cursor = "pointer";
   document.getElementById("nav-user-name").onclick = openProfilePanel;
 }
@@ -733,6 +748,18 @@ function openProfilePanel() {
   document.getElementById("profile-name").textContent = customer.name;
   document.getElementById("profile-email").innerHTML = "<i class='far fa-envelope'></i> " + customer.email;
   document.getElementById("profile-phone").innerHTML = "<i class='fab fa-whatsapp'></i> " + customer.phone;
+  
+  // Show profile avatar if exists
+  const avatarImg = document.getElementById("profile-avatar-img");
+  const placeholderIcon = document.getElementById("profile-avatar-placeholder");
+  if (customer.avatar) {
+    avatarImg.src = customer.avatar;
+    avatarImg.style.display = "block";
+    placeholderIcon.style.display = "none";
+  } else {
+    avatarImg.style.display = "none";
+    placeholderIcon.style.display = "block";
+  }
   
   // Total orders count
   const totalOrdersEl = document.getElementById("profile-total-orders-count");
@@ -838,3 +865,53 @@ window.toggleDarkMode = function() {
     if (icon) icon.className = "far fa-moon";
   }
 })();
+
+// --- Customer Avatar Upload Helpers ---
+window.triggerAvatarUpload = function() {
+  const input = document.getElementById("profile-avatar-input");
+  if (input) input.click();
+};
+
+window.handleAvatarUpload = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // Max file size 2MB
+  if (file.size > 2 * 1024 * 1024) {
+    alert("Tasveer ka size 2MB se kam hona chahiye!");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const base64Data = e.target.result;
+    const customer = getCurrentCustomer();
+    if (!customer) return;
+
+    // Save avatar base64
+    customer.avatar = base64Data;
+    
+    // Save in customer list
+    const customers = getCustomers();
+    const idx = customers.findIndex(c => c.id === customer.id);
+    if (idx !== -1) {
+      customers[idx] = customer;
+      saveCustomers(customers);
+    }
+    
+    // Set current active customer session
+    setCurrentCustomer(customer);
+
+    // Dynamic UI reload: Profile panel and Navbar badge
+    updateNavForCustomer(customer);
+    
+    const profileImg = document.getElementById("profile-avatar-img");
+    const profilePlaceholder = document.getElementById("profile-avatar-placeholder");
+    if (profileImg && profilePlaceholder) {
+      profileImg.src = base64Data;
+      profileImg.style.display = "block";
+      profilePlaceholder.style.display = "none";
+    }
+  };
+  reader.readAsDataURL(file);
+};
