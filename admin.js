@@ -357,6 +357,7 @@ const DEFAULT_SETTINGS = {
   whatsappPhone: "923217337801",
   instagramUrl: "https://www.instagram.com/sweetbitesarifwala?igsh=MTB1Nnd1OHJrcnBjcA==",
   facebookUrl: "https://www.facebook.com/share/18uBoeR6QQ/",
+  facebookProfileUrl: "https://www.facebook.com/share/1BaDZs7Lps/",
   tiktokUrl: "https://www.tiktok.com/@sweetbitesarifwala?_r=1&_t=ZS-984c8QtwRU2"
 };
 
@@ -372,6 +373,11 @@ function loadSettings() {
     settings = DEFAULT_SETTINGS;
     localStorage.setItem("sweet_bites_settings", JSON.stringify(settings));
   }
+  // Ensure facebookProfileUrl is present in old settings
+  if (!settings.facebookProfileUrl) {
+    settings.facebookProfileUrl = DEFAULT_SETTINGS.facebookProfileUrl;
+    localStorage.setItem("sweet_bites_settings", JSON.stringify(settings));
+  }
   return settings;
 }
 
@@ -380,11 +386,13 @@ function displaySettings() {
   const settingsWa = document.getElementById("settings-whatsapp");
   const settingsInsta = document.getElementById("settings-instagram");
   const settingsFb = document.getElementById("settings-facebook");
+  const settingsFbProfile = document.getElementById("settings-facebook-profile");
   const settingsTiktok = document.getElementById("settings-tiktok");
 
   if (settingsWa) settingsWa.value = settings.whatsappPhone;
   if (settingsInsta) settingsInsta.value = settings.instagramUrl || "";
   if (settingsFb) settingsFb.value = settings.facebookUrl || "";
+  if (settingsFbProfile) settingsFbProfile.value = settings.facebookProfileUrl || "";
   if (settingsTiktok) settingsTiktok.value = settings.tiktokUrl || "";
 }
 
@@ -411,6 +419,7 @@ if (settingsForm) {
       whatsappPhone: cleanPhone,
       instagramUrl: document.getElementById("settings-instagram").value.trim(),
       facebookUrl: document.getElementById("settings-facebook").value.trim(),
+      facebookProfileUrl: document.getElementById("settings-facebook-profile").value.trim(),
       tiktokUrl: document.getElementById("settings-tiktok").value.trim()
     };
     localStorage.setItem("sweet_bites_settings", JSON.stringify(updatedSettings));

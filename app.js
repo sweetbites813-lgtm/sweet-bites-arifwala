@@ -122,6 +122,7 @@ const DEFAULT_SETTINGS = {
   whatsappPhone: "923217337801",
   instagramUrl: "https://www.instagram.com/sweetbitesarifwala?igsh=MTB1Nnd1OHJrcnBjcA==",
   facebookUrl: "https://www.facebook.com/share/18uBoeR6QQ/",
+  facebookProfileUrl: "https://www.facebook.com/share/1BaDZs7Lps/",
   tiktokUrl: "https://www.tiktok.com/@sweetbitesarifwala?_r=1&_t=ZS-984c8QtwRU2"
 };
 
@@ -137,6 +138,11 @@ function loadSettings() {
     settings = DEFAULT_SETTINGS;
     localStorage.setItem("sweet_bites_settings", JSON.stringify(settings));
   }
+  // Ensure facebookProfileUrl is present in old settings
+  if (!settings.facebookProfileUrl) {
+    settings.facebookProfileUrl = DEFAULT_SETTINGS.facebookProfileUrl;
+    localStorage.setItem("sweet_bites_settings", JSON.stringify(settings));
+  }
   return settings;
 }
 
@@ -145,19 +151,23 @@ let settings = loadSettings();
 function applySocialLinks() {
   const navInsta = document.getElementById("nav-link-instagram");
   const navFb = document.getElementById("nav-link-facebook");
+  const navFbProfile = document.getElementById("nav-link-facebook-profile");
   const navTiktok = document.getElementById("nav-link-tiktok");
 
   if (navInsta) navInsta.href = settings.instagramUrl;
   if (navFb) navFb.href = settings.facebookUrl;
+  if (navFbProfile) navFbProfile.href = settings.facebookProfileUrl;
   if (navTiktok) navTiktok.href = settings.tiktokUrl;
 
   const footInsta = document.getElementById("footer-link-instagram");
   const footFb = document.getElementById("footer-link-facebook");
+  const footFbProfile = document.getElementById("footer-link-facebook-profile");
   const footTiktok = document.getElementById("footer-link-tiktok");
   const footWa = document.getElementById("footer-link-whatsapp");
 
   if (footInsta) footInsta.href = settings.instagramUrl;
   if (footFb) footFb.href = settings.facebookUrl;
+  if (footFbProfile) footFbProfile.href = settings.facebookProfileUrl;
   if (footTiktok) footTiktok.href = settings.tiktokUrl;
   if (footWa) footWa.href = `https://wa.me/${settings.whatsappPhone}`;
 
