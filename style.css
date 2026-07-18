@@ -1610,3 +1610,32 @@ footer {
   margin: 10px 0;
 }
 
+/* Customer Profile Sidebar & Overlay Styling */
+#customer-profile-panel {
+  position: fixed;
+  top: 0;
+  right: -450px;
+  width: 450px;
+  height: 100vh;
+  background: var(--chocolate-deep); /* Force solid background based on theme */
+  border-left: 3px solid var(--gold-primary);
+  z-index: 3000;
+  box-shadow: -10px 0 45px rgba(0,0,0,0.2);
+  transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+#profile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2999;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

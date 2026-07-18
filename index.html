@@ -22,8 +22,8 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Style Link -->
-  <link rel="stylesheet" href="style.css">
+  <!-- Style Link with Cache Buster -->
+  <link rel="stylesheet" href="style.css?v=2.1">
 
   <!-- Schema.org Structured Data for Local SEO -->
   <script type="application/ld+json">
@@ -520,7 +520,7 @@
     </div>
 
     <!-- CUSTOMER PROFILE PANEL (slide-in from right) -->
-    <div id="customer-profile-panel" style="position:fixed; top:0; right:-450px; width:450px; height:100vh; background:var(--chocolate-mid); border-left:3px solid var(--gold-primary); z-index:3000; box-shadow:-10px 0 45px rgba(0,0,0,0.2); transition:right 0.5s cubic-bezier(0.16, 1, 0.3, 1); overflow-y:auto; display:flex; flex-direction:column; font-family:var(--font-sans);">
+    <div id="customer-profile-panel">
       
       <!-- Premium Header Banner -->
       <div style="background: linear-gradient(135deg, #2c180e 0%, #120703 100%); padding:40px 30px; color:#fff; position:relative; overflow:hidden; border-bottom:1px solid rgba(197,160,89,0.25);">
@@ -590,7 +590,7 @@
       </div>
 
     </div>
-    <div id="profile-overlay" onclick="closeProfilePanel()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:2999; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);"></div>
+    <div id="profile-overlay" onclick="closeProfilePanel()"></div>
 
     <!-- Footer Section -->
     <footer>
