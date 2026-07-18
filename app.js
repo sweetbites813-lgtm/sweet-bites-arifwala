@@ -734,21 +734,37 @@ function openProfilePanel() {
   document.getElementById("profile-email").innerHTML = "<i class='far fa-envelope'></i> " + customer.email;
   document.getElementById("profile-phone").innerHTML = "<i class='fab fa-whatsapp'></i> " + customer.phone;
   
-  // Load orders
+  // Total orders count
+  const totalOrdersEl = document.getElementById("profile-total-orders-count");
+  if (totalOrdersEl) {
+    totalOrdersEl.textContent = customer.orders ? customer.orders.length : 0;
+  }
+  
+  // Load orders (Timeline layout)
   const ordersList = document.getElementById("customer-orders-list");
   if (customer.orders && customer.orders.length > 0) {
-    ordersList.innerHTML = customer.orders.map(o => `
-      <div style="background:var(--cream-bg); border-radius:10px; padding:18px; margin-bottom:15px; border:1px solid var(--chocolate-light); box-shadow:0 4px 12px rgba(61,34,20,0.03); transition:transform 0.2s ease;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; gap:10px;">
-          <h5 style="color:var(--text-light); font-size:1rem; font-family:var(--font-serif); font-weight:700; margin:0; line-height:1.2;">${o.product}</h5>
-          <span style="color:var(--gold-primary); font-weight:700; font-family:monospace; font-size:1.05rem; white-space:nowrap;">Rs. ${Number(o.total).toLocaleString()}</span>
+    ordersList.innerHTML = `
+      <div style="position:absolute; top:15px; bottom:15px; left:25px; width:2px; background:var(--chocolate-light); z-index:0;"></div>
+      ${customer.orders.map((o, idx) => `
+        <div style="display:flex; gap:18px; position:relative; z-index:1; margin-bottom:20px; align-items:flex-start;">
+          <!-- Timeline Bullet Icon -->
+          <div style="width:20px; height:20px; border-radius:50%; background:var(--chocolate-mid); border:3.5px solid var(--gold-primary); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-left:16px; box-shadow:0 0 8px rgba(197,160,89,0.25); z-index:2; margin-top:10px;">
+            <div style="width:5px; height:5px; border-radius:50%; background:var(--gold-primary);"></div>
+          </div>
+          <!-- Card Content -->
+          <div style="background:var(--chocolate-mid); border:1.5px solid var(--chocolate-light); border-radius:12px; padding:15px; flex:1; box-shadow:var(--shadow-luxury); transition:transform 0.2s ease;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:6px;">
+              <h5 style="color:var(--text-light); font-size:0.95rem; font-family:var(--font-serif); font-weight:700; margin:0; line-height:1.2;">${o.product}</h5>
+              <span style="color:var(--gold-primary); font-weight:700; font-family:monospace; font-size:0.95rem; white-space:nowrap;">Rs. ${Number(o.total).toLocaleString()}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:0.75rem; color:var(--text-muted); border-top:1px dashed var(--chocolate-light); padding-top:8px;">
+              <span>⚖️ Qty: <strong>${o.weight}</strong></span>
+              <span style="background:rgba(197,160,89,0.1); color:var(--gold-primary); padding:2px 8px; border-radius:10px; font-weight:600; font-size:0.7rem;">📅 ${o.date}</span>
+            </div>
+          </div>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:var(--text-muted); margin-top:10px; border-top:1px dashed var(--chocolate-light); padding-top:10px;">
-          <span>⚖️ Qty: <strong>${o.weight}</strong></span>
-          <span style="background:rgba(197,160,89,0.1); color:var(--gold-primary); padding:3px 8px; border-radius:12px; font-weight:600; font-size:0.75rem;">📅 ${o.date}</span>
-        </div>
-      </div>
-    `).join("");
+      `).join("")}
+    `;
   } else {
     ordersList.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding:35px 0; font-style:italic; font-size:0.9rem;">Abhi tak koi order nahi. Abhi order karein! 🍰</p>`;
   }
