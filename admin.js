@@ -7,7 +7,7 @@ const DEFAULT_PRODUCTS = [
     title: "Luxury Birthday Custom Cake",
     price: 1600,
     category: "cakes",
-    image: "assets/birthday_cake.png",
+    image: "assets/birthday_cake.webp",
     description: "An elegant custom frosted birthday cake. Rich chocolate fudge base decorated with gold sprinkles and delicate hand-crafted sugar toppings. Free delivery & candles included.",
     flavour: "Chocolate Fudge",
     leadTime: "2 Days"
@@ -17,7 +17,7 @@ const DEFAULT_PRODUCTS = [
     title: "Floral Wedding Custom Cake",
     price: 1800,
     category: "cakes",
-    image: "assets/wedding_cake.png",
+    image: "assets/wedding_cake.webp",
     description: "A beautiful multi-tier classic wedding cake. Coated in premium fondant with delicate icing lace details and rose decor to elevate your reception. Free delivery & candles included.",
     flavour: "Vanilla Caramel Drip",
     leadTime: "4 Days"
@@ -27,7 +27,7 @@ const DEFAULT_PRODUCTS = [
     title: "Cartoon Theme Fondant Cake",
     price: 2200,
     category: "cakes",
-    image: "assets/custom_cake.png",
+    image: "assets/custom_cake.webp",
     description: "Customized themed cake built exactly to your references. Features colorful fondant figurines, custom messaging, and playful details. Free delivery & candles included.",
     flavour: "Red Velvet Cream Cheese",
     leadTime: "3 Days"
@@ -37,7 +37,7 @@ const DEFAULT_PRODUCTS = [
     title: "Anniversary Gold Drip Cake",
     price: 1700,
     category: "cakes",
-    image: "assets/gallery_hero.png",
+    image: "assets/gallery_hero.webp",
     description: "Exquisite drip cake styled with gold accents, macarons, and elegant cream frosting. Perfect for special anniversaries. Free delivery & candles included.",
     flavour: "Lotus Biscoff Cream",
     leadTime: "2 Days"
@@ -47,7 +47,7 @@ const DEFAULT_PRODUCTS = [
     title: "Chocolate Fudge Overload Cake",
     price: 1500,
     category: "cakes",
-    image: "assets/fudge_brownies.png",
+    image: "assets/fudge_brownies.webp",
     description: "A dream cake for chocolate lovers. Rich moist chocolate sponge layered with heavy fudge frosting and topped with chocolate flakes. Free delivery & candles included.",
     flavour: "Belgian Chocolate Fudge",
     leadTime: "2 Days"
@@ -57,7 +57,7 @@ const DEFAULT_PRODUCTS = [
     title: "Elegant Engagement Custom Cake",
     price: 1900,
     category: "cakes",
-    image: "assets/birthday_cake.png",
+    image: "assets/birthday_cake.webp",
     description: "A premium customized cake designed to match your engagement theme. Soft colors, elegant piping, and custom names. Free delivery & candles included.",
     flavour: "Cookies & Cream OREO",
     leadTime: "2 Days"
@@ -125,7 +125,18 @@ function loadDatabase() {
     localStorage.setItem("sweet_bites_products", JSON.stringify(DEFAULT_PRODUCTS));
     return DEFAULT_PRODUCTS;
   }
-  return JSON.parse(localData);
+  let list = JSON.parse(localData);
+  let updated = false;
+  list.forEach(p => {
+    if (p.image && p.image.endsWith(".png") && !p.image.endsWith("logo.png")) {
+      p.image = p.image.replace(".png", ".webp");
+      updated = true;
+    }
+  });
+  if (updated) {
+    localStorage.setItem("sweet_bites_products", JSON.stringify(list));
+  }
+  return list;
 }
 
 function saveDatabase() {
