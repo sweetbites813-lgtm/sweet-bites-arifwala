@@ -119,10 +119,10 @@ let products = loadDatabase();
 
 // 1b. DYNAMIC SETTINGS & SOCIAL LINKS INITIALIZATION
 const DEFAULT_SETTINGS = {
-  whatsappPhone: "923001234567",
-  instagramUrl: "https://instagram.com",
-  facebookUrl: "https://facebook.com",
-  tiktokUrl: "https://tiktok.com"
+  whatsappPhone: "923217337801",
+  instagramUrl: "https://www.instagram.com/sweetbitesarifwala?igsh=MTB1Nnd1OHJrcnBjcA==",
+  facebookUrl: "https://www.facebook.com/share/18uBoeR6QQ/",
+  tiktokUrl: "https://www.tiktok.com/@sweetbitesarifwala?_r=1&_t=ZS-984c8QtwRU2"
 };
 
 function loadSettings() {
@@ -131,7 +131,13 @@ function loadSettings() {
     localStorage.setItem("sweet_bites_settings", JSON.stringify(DEFAULT_SETTINGS));
     return DEFAULT_SETTINGS;
   }
-  return JSON.parse(localSettings);
+  let settings = JSON.parse(localSettings);
+  // Migrate old default settings to new real ones
+  if (settings.whatsappPhone === "923001234567" || !settings.instagramUrl.includes("sweetbitesarifwala")) {
+    settings = DEFAULT_SETTINGS;
+    localStorage.setItem("sweet_bites_settings", JSON.stringify(settings));
+  }
+  return settings;
 }
 
 let settings = loadSettings();
