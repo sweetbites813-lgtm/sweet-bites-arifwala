@@ -25,6 +25,7 @@
   
   --navbar-bg: rgba(250, 246, 238, 0.85);
   --navbar-scrolled-bg: rgba(250, 246, 238, 0.95);
+  --profile-panel-bg: rgba(250, 246, 238, 0.78);
 }
 
 body.dark-mode {
@@ -39,6 +40,7 @@ body.dark-mode {
   
   --navbar-bg: rgba(30, 15, 7, 0.85);
   --navbar-scrolled-bg: rgba(30, 15, 7, 0.95);
+  --profile-panel-bg: rgba(30, 15, 7, 0.78);
 }
 
 /* Reset & Global */
