@@ -730,24 +730,27 @@ function openProfilePanel() {
   const customer = getCurrentCustomer();
   if (!customer) return;
   
-  document.getElementById("profile-name").textContent  = customer.name;
-  document.getElementById("profile-email").textContent = "📧 " + customer.email;
-  document.getElementById("profile-phone").innerHTML   = "<i class='fab fa-whatsapp'></i> " + customer.phone;
+  document.getElementById("profile-name").textContent = customer.name;
+  document.getElementById("profile-email").innerHTML = "<i class='far fa-envelope'></i> " + customer.email;
+  document.getElementById("profile-phone").innerHTML = "<i class='fab fa-whatsapp'></i> " + customer.phone;
   
   // Load orders
   const ordersList = document.getElementById("customer-orders-list");
   if (customer.orders && customer.orders.length > 0) {
     ordersList.innerHTML = customer.orders.map(o => `
-      <div style="background:var(--cream-bg); border-radius:8px; padding:15px; margin-bottom:12px; border:1px solid rgba(197,160,89,0.2);">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-          <strong style="color:var(--text-light); font-size:0.95rem;">${o.product}</strong>
-          <span style="color:var(--gold-primary); font-weight:700;">Rs. ${Number(o.total).toLocaleString()}</span>
+      <div style="background:var(--cream-bg); border-radius:10px; padding:18px; margin-bottom:15px; border:1px solid var(--chocolate-light); box-shadow:0 4px 12px rgba(61,34,20,0.03); transition:transform 0.2s ease;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; gap:10px;">
+          <h5 style="color:var(--text-light); font-size:1rem; font-family:var(--font-serif); font-weight:700; margin:0; line-height:1.2;">${o.product}</h5>
+          <span style="color:var(--gold-primary); font-weight:700; font-family:monospace; font-size:1.05rem; white-space:nowrap;">Rs. ${Number(o.total).toLocaleString()}</span>
         </div>
-        <div style="font-size:0.8rem; color:var(--text-muted);">${o.weight} • ${o.date}</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:var(--text-muted); margin-top:10px; border-top:1px dashed var(--chocolate-light); padding-top:10px;">
+          <span>⚖️ Qty: <strong>${o.weight}</strong></span>
+          <span style="background:rgba(197,160,89,0.1); color:var(--gold-primary); padding:3px 8px; border-radius:12px; font-weight:600; font-size:0.75rem;">📅 ${o.date}</span>
+        </div>
       </div>
     `).join("");
   } else {
-    ordersList.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding:30px 0; font-style:italic;">Abhi tak koi order nahi. Abhi order karein! 🍰</p>`;
+    ordersList.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding:35px 0; font-style:italic; font-size:0.9rem;">Abhi tak koi order nahi. Abhi order karein! 🍰</p>`;
   }
 
   document.getElementById("customer-profile-panel").style.right = "0";
