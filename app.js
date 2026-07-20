@@ -831,23 +831,39 @@ function openProfilePanel() {
   const totalOrdersEl = document.getElementById("profile-total-orders-count");
   if (totalOrdersEl) totalOrdersEl.textContent = orderCount;
 
-  const points = (orderCount * 50) + (customer.customPoints || 0);
+  // Calculate accumulated 10% cashback reward points
+  let points = customer.rewardPoints;
+  if (points === undefined) {
+    points = 0;
+    if (customer.orders) {
+      customer.orders.forEach(o => {
+        points += Math.round((o.total || 0) * 0.10);
+      });
+    }
+    customer.rewardPoints = points;
+  }
+
   const pointsEl = document.getElementById("profile-points-count");
-  if (pointsEl) pointsEl.textContent = points + " PTS";
+  if (pointsEl) pointsEl.textContent = points.toLocaleString() + " PTS";
 
   const rewardBar = document.getElementById("profile-reward-bar");
   const rewardText = document.getElementById("profile-reward-text");
   const rewardBadge = document.getElementById("profile-reward-badge");
   
-  const progressPct = Math.min(100, (points / 100) * 100);
-  if (rewardBar) rewardBar.style.width = progressPct + "%";
-  
-  if (points >= 100) {
-    if (rewardBadge) rewardBadge.textContent = "🏆 Free Reward!";
-    if (rewardText) rewardText.innerHTML = "<strong style='color:#25d366;'>🎉 Mubarak! AAP KA FREE BROWNIE BOX UNLOCKED HO GAYA!</strong>";
+  if (points >= 1800) {
+    if (rewardBar) rewardBar.style.width = "100%";
+    if (rewardBadge) rewardBadge.textContent = "🍫 Free Brownies Ready!";
+    if (rewardText) rewardText.innerHTML = "<strong style='color:#25d366;'>🎉 Mubarak! FREE Full Box Brownies Unlocked!</strong>";
+  } else if (points >= 1500) {
+    const pct = Math.min(100, (points / 1800) * 100);
+    if (rewardBar) rewardBar.style.width = pct + "%";
+    if (rewardBadge) rewardBadge.textContent = "🎂 Free Cake Ready!";
+    if (rewardText) rewardText.innerHTML = `<strong style='color:#FFD700;'>🎉 FREE 1 Pound Cake Unlocked! (${(1800 - points).toLocaleString()} PTS for Free Brownies 🍫)</strong>`;
   } else {
-    if (rewardBadge) rewardBadge.textContent = `Level ${Math.floor(points/50) + 1}`;
-    if (rewardText) rewardText.textContent = `${100 - points} pts remaining for FREE Brownie Box! 🎁`;
+    const pct = Math.min(100, (points / 1500) * 100);
+    if (rewardBar) rewardBar.style.width = pct + "%";
+    if (rewardBadge) rewardBadge.textContent = "Level 1";
+    if (rewardText) rewardText.textContent = `${(1500 - points).toLocaleString()} PTS needed for FREE 1 Pound Cake 🎂 (10% Cashback)`;
   }
 
   // --- 2. Load Saved Address ---
