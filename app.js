@@ -484,7 +484,7 @@ window.openQuickOrderModal = function(productId) {
       if (customer.orders) customer.orders.forEach(o => { pts += Math.round((o.total || 0) * 0.10); });
       customer.rewardPoints = pts;
     }
-    if (userPointsEl) userPointsEl.innerText = pts.toLocaleString() + " PTS";
+    if (userPointsEl) userPointsEl.innerText = pts.toLocaleString() + " Points";
     pointsContainer.style.display = "block";
 
     let html = "";
@@ -501,7 +501,7 @@ window.openQuickOrderModal = function(productId) {
       </label>`;
     }
     if (pts < 1500) {
-      html = `<span style="color:var(--text-muted); font-size:0.75rem;">Earn 10% Cashback Points on this order! Need ${(1500 - pts).toLocaleString()} more pts for FREE 1lb Cake.</span>`;
+      html = `<span style="color:var(--text-muted); font-size:0.75rem;">Earn 10% Cashback Points on this order! Need ${(1500 - pts).toLocaleString()} more Points for FREE 1lb Cake.</span>`;
     }
     if (pointsOptions) pointsOptions.innerHTML = html;
   } else if (pointsContainer) {
@@ -533,7 +533,7 @@ window.updateQuickOrderTotal = function() {
     qomTotalPrice.innerHTML = "<span style='color:#FFD700;'>Rs. 0 (FREE WITH 1,500 POINTS! 🎉)</span>";
   } else {
     const pointsEarned = Math.round(total * 0.10);
-    qomTotalPrice.innerText = `Rs. ${total.toLocaleString()} (+${pointsEarned} Cashback PTS)`;
+    qomTotalPrice.innerText = `Rs. ${total.toLocaleString()} (+${pointsEarned} Cashback Points)`;
   }
 };
 
@@ -844,7 +844,7 @@ function openProfilePanel() {
   }
 
   const pointsEl = document.getElementById("profile-points-count");
-  if (pointsEl) pointsEl.textContent = points.toLocaleString() + " PTS";
+  if (pointsEl) pointsEl.textContent = points.toLocaleString() + " Points";
 
   const rewardBar = document.getElementById("profile-reward-bar");
   const rewardText = document.getElementById("profile-reward-text");
@@ -858,12 +858,12 @@ function openProfilePanel() {
     const pct = Math.min(100, (points / 1800) * 100);
     if (rewardBar) rewardBar.style.width = pct + "%";
     if (rewardBadge) rewardBadge.textContent = "🎂 Free Cake Ready!";
-    if (rewardText) rewardText.innerHTML = `<strong style='color:#FFD700;'>🎉 FREE 1 Pound Cake Unlocked! (${(1800 - points).toLocaleString()} PTS for Free Brownies 🍫)</strong>`;
+    if (rewardText) rewardText.innerHTML = `<strong style='color:#FFD700;'>🎉 FREE 1 Pound Cake Unlocked! (${(1800 - points).toLocaleString()} Points for Free Brownies 🍫)</strong>`;
   } else {
     const pct = Math.min(100, (points / 1500) * 100);
     if (rewardBar) rewardBar.style.width = pct + "%";
     if (rewardBadge) rewardBadge.textContent = "Level 1";
-    if (rewardText) rewardText.textContent = `${(1500 - points).toLocaleString()} PTS needed for FREE 1 Pound Cake 🎂 (10% Cashback)`;
+    if (rewardText) rewardText.textContent = `${(1500 - points).toLocaleString()} Points needed for FREE 1 Pound Cake 🎂 (10% Cashback)`;
   }
 
   // --- 2. Load Saved Address ---
