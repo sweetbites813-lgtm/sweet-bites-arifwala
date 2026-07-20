@@ -867,7 +867,8 @@ window.toggleDarkMode = function() {
 })();
 
 // --- Customer Avatar Upload Helpers ---
-window.triggerAvatarUpload = function() {
+window.triggerAvatarUpload = function(event) {
+  if (event) event.stopPropagation();
   const input = document.getElementById("profile-avatar-input");
   if (input) input.click();
 };

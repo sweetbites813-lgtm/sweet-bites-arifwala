@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- Style Link with Cache Buster -->
-  <link rel="stylesheet" href="style.css?v=2.4">
+  <link rel="stylesheet" href="style.css?v=2.5">
 
   <!-- Schema.org Structured Data for Local SEO -->
   <script type="application/ld+json">
@@ -523,11 +523,11 @@
     <div id="customer-profile-panel">
       
       <!-- Premium Header Banner -->
-      <div style="background: linear-gradient(135deg, #2c180e 0%, #120703 100%); padding:40px 30px; color:#fff; position:relative; overflow:hidden; border-bottom:1px solid rgba(197,160,89,0.25);">
+      <div style="background: linear-gradient(135deg, #2c180e 0%, #120703 100%); padding:40px 30px; color:#fff; position:relative; overflow:hidden; border-bottom:1px solid rgba(197,160,89,0.25); text-align:center;">
         <button onclick="closeProfilePanel()" style="position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.1); border:none; color:var(--gold-primary); width:32px; height:32px; border-radius:50%; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; border:1px solid rgba(197,160,89,0.3); transition:var(--transition-smooth);" onmouseover="this.style.background='var(--gold-primary)'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.color='var(--gold-primary)';">&times;</button>
         
         <!-- Avatar Glow Wrapper with Upload Action -->
-        <div style="position:relative; width:75px; height:75px; flex-shrink:0; margin:0 auto 15px; cursor:pointer;" onclick="triggerAvatarUpload()" title="Click to upload profile picture">
+        <div style="position:relative; width:75px; height:75px; flex-shrink:0; margin:0 auto 15px; cursor:pointer;" onclick="triggerAvatarUpload(event)" title="Click to upload profile picture">
           <div style="position:absolute; top:-3px; left:-3px; right:-3px; bottom:-3px; border-radius:50%; background:linear-gradient(135deg, var(--gold-primary), var(--rose-accent)); padding:2px;"></div>
           
           <img id="profile-avatar-img" src="" style="width:75px; height:75px; border-radius:50%; object-fit:cover; position:relative; z-index:2; display:none;">
@@ -542,9 +542,7 @@
         <input type="file" id="profile-avatar-input" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)">
         
         <h3 id="profile-name" style="font-family:var(--font-serif); font-size:1.5rem; font-weight:700; margin:0; color:#fff; text-shadow:0 2px 4px rgba(0,0,0,0.2);">Customer Name</h3>
-            <span id="profile-badge" style="display:inline-block; background:rgba(197,160,89,0.15); border:1px solid var(--gold-primary); color:var(--gold-primary); font-size:0.7rem; padding:2px 8px; border-radius:10px; font-weight:600; margin-top:5px;"><i class="fas fa-crown"></i> Sweet Bites VIP</span>
-          </div>
-        </div>
+        <span id="profile-badge" style="display:inline-block; background:rgba(197,160,89,0.15); border:1px solid var(--gold-primary); color:var(--gold-primary); font-size:0.7rem; padding:2px 8px; border-radius:10px; font-weight:600; margin-top:5px;"><i class="fas fa-crown"></i> Sweet Bites VIP</span>
       </div>
 
       <!-- Quick Info / Contacts -->
