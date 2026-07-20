@@ -471,6 +471,43 @@ window.openQuickOrderModal = function(productId) {
     }
   }
 
+  // Setup Points Redemption UI for logged in customer
+  const customer = getCurrentCustomer();
+  const pointsContainer = document.getElementById("qom-points-container");
+  const pointsOptions = document.getElementById("qom-points-options");
+  const userPointsEl = document.getElementById("qom-user-points");
+
+  if (customer && pointsContainer) {
+    let pts = customer.rewardPoints;
+    if (pts === undefined) {
+      pts = 0;
+      if (customer.orders) customer.orders.forEach(o => { pts += Math.round((o.total || 0) * 0.10); });
+      customer.rewardPoints = pts;
+    }
+    if (userPointsEl) userPointsEl.innerText = pts.toLocaleString() + " PTS";
+    pointsContainer.style.display = "block";
+
+    let html = "";
+    if (pts >= 1800) {
+      html += `<label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-weight:600; color:var(--gold-primary);">
+        <input type="checkbox" id="qom-redeem-1800" onchange="updateQuickOrderTotal()">
+        🎁 Redeem 1,800 Points for FREE Full Brownies Box!
+      </label>`;
+    }
+    if (pts >= 1500) {
+      html += `<label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-weight:600; color:var(--gold-primary); margin-top:4px;">
+        <input type="checkbox" id="qom-redeem-1500" onchange="updateQuickOrderTotal()">
+        🎂 Redeem 1,500 Points for FREE 1 Pound Cake!
+      </label>`;
+    }
+    if (pts < 1500) {
+      html = `<span style="color:var(--text-muted); font-size:0.75rem;">Earn 10% Cashback Points on this order! Need ${(1500 - pts).toLocaleString()} more pts for FREE 1lb Cake.</span>`;
+    }
+    if (pointsOptions) pointsOptions.innerHTML = html;
+  } else if (pointsContainer) {
+    pointsContainer.style.display = "none";
+  }
+
   updateQuickOrderTotal();
   qomModal.classList.add("active");
 };
@@ -483,32 +520,60 @@ window.closeQuickOrderModal = function() {
 window.updateQuickOrderTotal = function() {
   if (!currentOrderProduct) return;
   const qty = Number(qomQtySelect.value);
-  const total = currentOrderProduct.price * qty;
-  qomTotalPrice.innerText = `Rs. ${total.toLocaleString()}`;
+  let total = currentOrderProduct.price * qty;
+
+  const redeem1800 = document.getElementById("qom-redeem-1800");
+  const redeem1500 = document.getElementById("qom-redeem-1500");
+
+  if (redeem1800 && redeem1800.checked) {
+    if (redeem1500) redeem1500.checked = false;
+    qomTotalPrice.innerHTML = "<span style='color:#25d366;'>Rs. 0 (FREE WITH 1,800 POINTS! 🎉)</span>";
+  } else if (redeem1500 && redeem1500.checked) {
+    if (redeem1800) redeem1800.checked = false;
+    qomTotalPrice.innerHTML = "<span style='color:#FFD700;'>Rs. 0 (FREE WITH 1,500 POINTS! 🎉)</span>";
+  } else {
+    const pointsEarned = Math.round(total * 0.10);
+    qomTotalPrice.innerText = `Rs. ${total.toLocaleString()} (+${pointsEarned} Cashback PTS)`;
+  }
 };
 
 window.submitQuickOrderModal = function() {
   if (!currentOrderProduct) return;
   const qty = Number(qomQtySelect.value);
-  const total = currentOrderProduct.price * qty;
+  let total = currentOrderProduct.price * qty;
   const unit = currentOrderProduct.category === "cakes" ? (qty === 1 ? "Pound" : "Pounds") : (currentOrderProduct.category === "cookies" ? (qty === 1 ? "Box" : "Boxes") : (qty === 1 ? "Loaf" : "Loaves"));
+
+  const redeem1800 = document.getElementById("qom-redeem-1800");
+  const redeem1500 = document.getElementById("qom-redeem-1500");
+
+  let pointsDeducted = 0;
+  let isFree = false;
+
+  if (redeem1800 && redeem1800.checked) {
+    pointsDeducted = 1800;
+    isFree = true;
+    total = 0;
+  } else if (redeem1500 && redeem1500.checked) {
+    pointsDeducted = 1500;
+    isFree = true;
+    total = 0;
+  }
 
   const orderMsg = `Hello Sweet Bites Arifwala! 🍰
 I am interested in ordering:
 
 🎂 Product: ${currentOrderProduct.title}
 ⚖️ Selected Size/Qty: ${qty} ${unit}
-💵 Price per Unit: Rs. ${currentOrderProduct.price.toLocaleString()}
-💰 Total Price: Rs. ${total.toLocaleString()}
+${isFree ? `🎁 REWARD REDEMPTION: CLAIMED FREE WITH ${pointsDeducted} REWARD POINTS! 🎉` : `💵 Price: Rs. ${currentOrderProduct.price * qty} (+10% Cashback Points)`}
 
-Please tell me the availability and confirm my order request. Thanks!`;
+Please confirm my order request. Thank you!`;
 
   const encodedMsg = encodeURIComponent(orderMsg);
   const bakerPhone = settings.whatsappPhone;
   window.open(`https://wa.me/${bakerPhone}?text=${encodedMsg}`, "_blank");
 
-  // Save to customer order history if logged in
-  saveOrderToCustomerProfile(currentOrderProduct.title, qty + " " + unit, total);
+  // Save to customer order history
+  saveOrderToCustomerProfile(currentOrderProduct.title + (isFree ? " (FREE Reward)" : ""), qty + " " + unit, total, pointsDeducted);
 
   closeQuickOrderModal();
 };
@@ -856,15 +921,32 @@ function closeProfilePanel() {
 }
 
 // --- Save order to customer profile after WhatsApp order ---
-function saveOrderToCustomerProfile(productTitle, weight, total) {
+function saveOrderToCustomerProfile(productTitle, weight, total, pointsDeducted = 0) {
   const customer = getCurrentCustomer();
   if (!customer) return;
   
+  // Calculate 10% cashback points (if not redeemed with points)
+  const pointsEarned = pointsDeducted > 0 ? 0 : Math.round(total * 0.10);
+  
+  if (customer.rewardPoints === undefined) {
+    let pts = 0;
+    if (customer.orders) {
+      customer.orders.forEach(o => { pts += Math.round((o.total || 0) * 0.10); });
+    }
+    customer.rewardPoints = pts;
+  }
+
+  // Deduct points or add 10% cashback
+  customer.rewardPoints = Math.max(0, customer.rewardPoints + pointsEarned - pointsDeducted);
+
   customer.orders = customer.orders || [];
   customer.orders.unshift({
     product: productTitle,
     weight: weight,
-    total: total,
+    total: pointsDeducted > 0 ? 0 : total,
+    pointsEarned: pointsEarned,
+    pointsDeducted: pointsDeducted,
+    status: "baking",
     date: new Date().toLocaleDateString("ur-PK")
   });
 
