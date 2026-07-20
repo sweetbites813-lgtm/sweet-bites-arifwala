@@ -853,16 +853,16 @@ window.toggleDarkMode = function() {
   }
 };
 
-// Restore theme preference on load
+// Restore theme preference on load (Defaults to Dark Mode)
 (function restoreThemePreference() {
   const savedTheme = localStorage.getItem("sweet_bites_theme");
   const icon = document.getElementById("theme-toggle-icon");
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark-mode");
-    if (icon) icon.className = "fas fa-sun";
-  } else {
+  if (savedTheme === "light") {
     document.body.classList.remove("dark-mode");
     if (icon) icon.className = "far fa-moon";
+  } else {
+    document.body.classList.add("dark-mode");
+    if (icon) icon.className = "fas fa-sun";
   }
 })();
 
