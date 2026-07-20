@@ -785,11 +785,9 @@ function openProfilePanel() {
     if (rewardText) rewardText.textContent = `${100 - points} pts remaining for FREE Brownie Box! 🎁`;
   }
 
-  // --- 2. Load Saved Address & Notes ---
+  // --- 2. Load Saved Address ---
   const addrInput = document.getElementById("profile-address-input");
-  const noteInput = document.getElementById("profile-note-input");
   if (addrInput) addrInput.value = customer.address || "";
-  if (noteInput) noteInput.value = customer.defaultNote || "";
 
   // --- 3. Render Birthday Reminders ---
   renderBirthdayReminders(customer);
@@ -974,11 +972,10 @@ window.saveCustomerPreferences = function() {
   const customer = getCurrentCustomer();
   if (!customer) return;
 
-  const addr = document.getElementById("profile-address-input").value;
-  const note = document.getElementById("profile-note-input").value;
+  const addrInput = document.getElementById("profile-address-input");
+  const addr = addrInput ? addrInput.value : "";
 
   customer.address = addr;
-  customer.defaultNote = note;
 
   const customers = getCustomers();
   const idx = customers.findIndex(c => c.id === customer.id);
