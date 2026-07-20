@@ -1639,3 +1639,89 @@ footer {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+
+/* ==========================================================================
+   COOL ANIMATIONS FOR SOCIAL MEDIA ICONS (NAVBAR & FOOTER)
+   ========================================================================== */
+
+/* Floating Idle Animation */
+@keyframes float-social {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.nav-socials a, .footer-socials a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  background: var(--chocolate-mid) !important;
+  color: var(--gold-primary) !important;
+  border: 1.5px solid rgba(197, 160, 89, 0.3) !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  position: relative !important;
+  text-decoration: none !important;
+  font-size: 1.15rem !important;
+  animation: float-social 3.5s ease-in-out infinite !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+}
+
+.footer-socials a {
+  width: 44px !important;
+  height: 44px !important;
+  font-size: 1.3rem !important;
+}
+
+/* Stagger floating animations for organic feel */
+.nav-socials a:nth-child(1), .footer-socials a:nth-child(1) { animation-delay: 0s !important; }
+.nav-socials a:nth-child(2), .footer-socials a:nth-child(2) { animation-delay: 0.4s !important; }
+.nav-socials a:nth-child(3), .footer-socials a:nth-child(3) { animation-delay: 0.8s !important; }
+.nav-socials a:nth-child(4), .footer-socials a:nth-child(4) { animation-delay: 1.2s !important; }
+.footer-socials a:nth-child(5) { animation-delay: 1.6s !important; }
+
+/* 3D Lift & Brand Glow on Hover */
+.nav-socials a:hover, .footer-socials a:hover {
+  transform: translateY(-8px) scale(1.22) rotate(6deg) !important;
+  border-color: transparent !important;
+}
+
+/* Instagram Brand Colors & Glow */
+#nav-link-instagram:hover, #footer-link-instagram:hover {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px rgba(225, 48, 108, 0.6) !important;
+}
+
+/* Facebook Page Brand Colors & Glow */
+#nav-link-facebook:hover, #footer-link-facebook:hover {
+  background: #1877f2 !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px rgba(24, 119, 242, 0.6) !important;
+}
+
+/* Facebook Profile Brand Colors & Glow */
+#nav-link-facebook-profile:hover, #footer-link-facebook-profile:hover {
+  background: linear-gradient(135deg, #1877f2 0%, #3b5998 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px rgba(59, 89, 152, 0.6) !important;
+}
+
+/* TikTok Brand Colors & Glow */
+#nav-link-tiktok:hover, #footer-link-tiktok:hover {
+  background: #000000 !important;
+  color: #25f4ee !important;
+  box-shadow: 0 10px 25px rgba(37, 244, 238, 0.5), 0 0 15px rgba(254, 44, 85, 0.5) !important;
+}
+
+/* WhatsApp Brand Colors & Glow */
+#footer-link-whatsapp:hover {
+  background: #25d366 !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6) !important;
+}
