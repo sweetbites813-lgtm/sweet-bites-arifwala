@@ -761,39 +761,91 @@ function openProfilePanel() {
     placeholderIcon.style.display = "block";
   }
   
-  // Total orders count
+  // --- 1. Total Orders & Points Calculation ---
+  const orderCount = customer.orders ? customer.orders.length : 0;
   const totalOrdersEl = document.getElementById("profile-total-orders-count");
-  if (totalOrdersEl) {
-    totalOrdersEl.textContent = customer.orders ? customer.orders.length : 0;
-  }
+  if (totalOrdersEl) totalOrdersEl.textContent = orderCount;
+
+  const points = (orderCount * 50) + (customer.customPoints || 0);
+  const pointsEl = document.getElementById("profile-points-count");
+  if (pointsEl) pointsEl.textContent = points + " PTS";
+
+  const rewardBar = document.getElementById("profile-reward-bar");
+  const rewardText = document.getElementById("profile-reward-text");
+  const rewardBadge = document.getElementById("profile-reward-badge");
   
-  // Load orders (Timeline layout)
+  const progressPct = Math.min(100, (points / 100) * 100);
+  if (rewardBar) rewardBar.style.width = progressPct + "%";
+  
+  if (points >= 100) {
+    if (rewardBadge) rewardBadge.textContent = "🏆 Free Reward!";
+    if (rewardText) rewardText.innerHTML = "<strong style='color:#25d366;'>🎉 Mubarak! AAP KA FREE BROWNIE BOX UNLOCKED HO GAYA!</strong>";
+  } else {
+    if (rewardBadge) rewardBadge.textContent = `Level ${Math.floor(points/50) + 1}`;
+    if (rewardText) rewardText.textContent = `${100 - points} pts remaining for FREE Brownie Box! 🎁`;
+  }
+
+  // --- 2. Load Saved Address & Notes ---
+  const addrInput = document.getElementById("profile-address-input");
+  const noteInput = document.getElementById("profile-note-input");
+  if (addrInput) addrInput.value = customer.address || "";
+  if (noteInput) noteInput.value = customer.defaultNote || "";
+
+  // --- 3. Render Birthday Reminders ---
+  renderBirthdayReminders(customer);
+
+  // --- 4. Render Live Order Status Tracker & History ---
   const ordersList = document.getElementById("customer-orders-list");
   if (customer.orders && customer.orders.length > 0) {
     ordersList.innerHTML = `
-      <div style="position:absolute; top:15px; bottom:15px; left:25px; width:2px; background:var(--chocolate-light); z-index:0;"></div>
-      ${customer.orders.map((o, idx) => `
-        <div style="display:flex; gap:18px; position:relative; z-index:1; margin-bottom:20px; align-items:flex-start;">
-          <!-- Timeline Bullet Icon -->
-          <div style="width:20px; height:20px; border-radius:50%; background:var(--chocolate-mid); border:3.5px solid var(--gold-primary); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-left:16px; box-shadow:0 0 8px rgba(197,160,89,0.25); z-index:2; margin-top:10px;">
-            <div style="width:5px; height:5px; border-radius:50%; background:var(--gold-primary);"></div>
+      <div style="position:absolute; top:15px; bottom:15px; left:22px; width:2px; background:var(--chocolate-light); z-index:0;"></div>
+      ${customer.orders.map((o, idx) => {
+        const status = o.status || (idx === 0 ? "baking" : "delivered");
+        let step = 2;
+        let progress = 50;
+        
+        if (status === "placed") { step = 1; progress = 25; }
+        else if (status === "baking") { step = 2; progress = 50; }
+        else if (status === "decorating") { step = 3; progress = 75; }
+        else if (status === "out_for_delivery" || status === "delivered") { step = 4; progress = 100; }
+
+        return `
+        <div style="display:flex; gap:14px; position:relative; z-index:1; margin-bottom:18px; align-items:flex-start;">
+          <!-- Bullet -->
+          <div style="width:18px; height:18px; border-radius:50%; background:var(--chocolate-mid); border:3px solid var(--gold-primary); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-left:14px; box-shadow:0 0 8px rgba(197,160,89,0.25); z-index:2; margin-top:8px;">
+            <div style="width:4px; height:4px; border-radius:50%; background:var(--gold-primary);"></div>
           </div>
           <!-- Card Content -->
-          <div style="background:var(--chocolate-mid); border:1.5px solid var(--chocolate-light); border-radius:12px; padding:15px; flex:1; box-shadow:var(--shadow-luxury); transition:transform 0.2s ease;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:6px;">
-              <h5 style="color:var(--text-light); font-size:0.95rem; font-family:var(--font-serif); font-weight:700; margin:0; line-height:1.2;">${o.product}</h5>
-              <span style="color:var(--gold-primary); font-weight:700; font-family:monospace; font-size:0.95rem; white-space:nowrap;">Rs. ${Number(o.total).toLocaleString()}</span>
+          <div style="background:var(--chocolate-mid); border:1.5px solid var(--chocolate-light); border-radius:10px; padding:12px; flex:1; box-shadow:var(--shadow-luxury);">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:4px;">
+              <h5 style="color:var(--text-light); font-size:0.9rem; font-family:var(--font-serif); font-weight:700; margin:0;">${o.product}</h5>
+              <span style="color:var(--gold-primary); font-weight:700; font-family:monospace; font-size:0.9rem; white-space:nowrap;">Rs. ${Number(o.total).toLocaleString()}</span>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:0.75rem; color:var(--text-muted); border-top:1px dashed var(--chocolate-light); padding-top:8px;">
+            
+            <!-- Live Progress Tracker -->
+            <div style="margin: 8px 0; background: rgba(0,0,0,0.25); border-radius: 6px; padding: 8px; font-size: 0.68rem;">
+              <div style="display:flex; justify-content:space-between; margin-bottom: 4px; font-weight:600;">
+                <span style="color:${step >= 1 ? 'var(--gold-primary)' : 'var(--text-muted)'};">📝 Received</span>
+                <span style="color:${step >= 2 ? 'var(--gold-primary)' : 'var(--text-muted)'};">🎂 Baking</span>
+                <span style="color:${step >= 3 ? 'var(--gold-primary)' : 'var(--text-muted)'};">🎨 Decorating</span>
+                <span style="color:${step >= 4 ? '#25d366' : 'var(--text-muted)'};">🚚 Delivery</span>
+              </div>
+              <div style="width:100%; height:4px; background:var(--chocolate-light); border-radius:2px; overflow:hidden;">
+                <div style="width:${progress}%; height:100%; background:linear-gradient(90deg, var(--gold-primary), #25d366); transition:width 0.4s;"></div>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.72rem; color:var(--text-muted); border-top:1px dashed var(--chocolate-light); padding-top:6px;">
               <span>⚖️ Qty: <strong>${o.weight}</strong></span>
-              <span style="background:rgba(197,160,89,0.1); color:var(--gold-primary); padding:2px 8px; border-radius:10px; font-weight:600; font-size:0.7rem;">📅 ${o.date}</span>
+              <span style="background:rgba(197,160,89,0.1); color:var(--gold-primary); padding:2px 6px; border-radius:8px; font-weight:600; font-size:0.68rem;">📅 ${o.date}</span>
             </div>
           </div>
         </div>
-      `).join("")}
+      `;
+      }).join("")}
     `;
   } else {
-    ordersList.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding:35px 0; font-style:italic; font-size:0.9rem;">Abhi tak koi order nahi. Abhi order karein! 🍰</p>`;
+    ordersList.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding:25px 0; font-style:italic; font-size:0.85rem;">Abhi tak koi order nahi. Abhi pehla order karein! 🍰</p>`;
   }
 
   document.getElementById("customer-profile-panel").style.right = "0";
@@ -916,3 +968,88 @@ window.handleAvatarUpload = function(event) {
   };
   reader.readAsDataURL(file);
 };
+
+// --- Customer Address & Preferences Helper ---
+window.saveCustomerPreferences = function() {
+  const customer = getCurrentCustomer();
+  if (!customer) return;
+
+  const addr = document.getElementById("profile-address-input").value;
+  const note = document.getElementById("profile-note-input").value;
+
+  customer.address = addr;
+  customer.defaultNote = note;
+
+  const customers = getCustomers();
+  const idx = customers.findIndex(c => c.id === customer.id);
+  if (idx !== -1) {
+    customers[idx] = customer;
+    saveCustomers(customers);
+  }
+  setCurrentCustomer(customer);
+  alert("Aap ka Delivery Address aur Preferences mehfooz ho gaye hain! 💾");
+};
+
+// --- Birthday & Event Reminders Helpers ---
+window.addBirthdayReminder = function() {
+  const customer = getCurrentCustomer();
+  if (!customer) return;
+
+  const nameInput = document.getElementById("reminder-name-input");
+  const dateInput = document.getElementById("reminder-date-input");
+
+  if (!nameInput.value || !dateInput.value) {
+    alert("Barah-e-karam Naam aur Tareekh dono muntakhib karein!");
+    return;
+  }
+
+  customer.reminders = customer.reminders || [];
+  customer.reminders.push({
+    name: nameInput.value,
+    date: dateInput.value
+  });
+
+  const customers = getCustomers();
+  const idx = customers.findIndex(c => c.id === customer.id);
+  if (idx !== -1) {
+    customers[idx] = customer;
+    saveCustomers(customers);
+  }
+  setCurrentCustomer(customer);
+
+  nameInput.value = "";
+  dateInput.value = "";
+  renderBirthdayReminders(customer);
+};
+
+window.deleteBirthdayReminder = function(idx) {
+  const customer = getCurrentCustomer();
+  if (!customer || !customer.reminders) return;
+
+  customer.reminders.splice(idx, 1);
+
+  const customers = getCustomers();
+  const cIdx = customers.findIndex(c => c.id === customer.id);
+  if (cIdx !== -1) {
+    customers[cIdx] = customer;
+    saveCustomers(customers);
+  }
+  setCurrentCustomer(customer);
+  renderBirthdayReminders(customer);
+};
+
+function renderBirthdayReminders(customer) {
+  const listEl = document.getElementById("reminders-list");
+  if (!listEl) return;
+
+  if (customer.reminders && customer.reminders.length > 0) {
+    listEl.innerHTML = customer.reminders.map((r, idx) => `
+      <div style="display:flex; justify-content:space-between; align-items:center; background:var(--chocolate-light); padding:5px 8px; border-radius:6px; font-size:0.75rem; color:var(--text-light);">
+        <span>🎂 <strong>${r.name}</strong> (${r.date})</span>
+        <button onclick="deleteBirthdayReminder(${idx})" style="background:transparent; border:none; color:var(--rose-accent); cursor:pointer; font-size:0.8rem; font-weight:700;">&times;</button>
+      </div>
+    `).join("");
+  } else {
+    listEl.innerHTML = `<p style="font-size:0.72rem; color:var(--text-muted); text-align:center; margin:4px 0;">Koi reminder nahi. Salgirah ki tareekh add karein!</p>`;
+  }
+}

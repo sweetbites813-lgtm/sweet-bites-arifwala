@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- Style Link with Cache Buster -->
-  <link rel="stylesheet" href="style.css?v=2.5">
+  <link rel="stylesheet" href="style.css?v=2.6">
 
   <!-- Schema.org Structured Data for Local SEO -->
   <script type="application/ld+json">
@@ -546,42 +546,90 @@
       </div>
 
       <!-- Quick Info / Contacts -->
-      <div style="background:var(--chocolate-light); padding:15px 30px; display:flex; justify-content:space-between; font-size:0.8rem; border-bottom:1px solid rgba(197,160,89,0.15); color:var(--text-muted); gap:10px;">
+      <div style="background:var(--chocolate-light); padding:12px 30px; display:flex; justify-content:space-between; font-size:0.78rem; border-bottom:1px solid rgba(197,160,89,0.15); color:var(--text-muted); gap:10px;">
         <span id="profile-email" style="display:flex; align-items:center; gap:5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><i class="far fa-envelope" style="color:var(--gold-primary);"></i> email</span>
         <span id="profile-phone" style="display:flex; align-items:center; gap:5px; white-space:nowrap;"><i class="fab fa-whatsapp" style="color:var(--gold-primary);"></i> phone</span>
       </div>
 
       <!-- Stats Grid -->
-      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; padding:25px 30px 15px;">
-        <div style="background:var(--chocolate-mid); border:1px solid rgba(197,160,89,0.15); padding:15px; border-radius:12px; text-align:center; box-shadow:var(--shadow-luxury);">
-          <i class="fas fa-birthday-cake" style="color:var(--gold-primary); font-size:1.3rem; margin-bottom:5px; display:block;"></i>
-          <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:600;">Total Orders</span>
-          <h4 id="profile-total-orders-count" style="font-size:1.6rem; color:var(--text-light); margin:5px 0 0; font-weight:700; font-family:var(--font-sans);">0</h4>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; padding:15px 30px 10px;">
+        <div style="background:var(--chocolate-mid); border:1px solid rgba(197,160,89,0.15); padding:10px; border-radius:10px; text-align:center; box-shadow:var(--shadow-luxury);">
+          <i class="fas fa-birthday-cake" style="color:var(--gold-primary); font-size:1.1rem; margin-bottom:3px; display:block;"></i>
+          <span style="font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; font-weight:600;">Total Orders</span>
+          <h4 id="profile-total-orders-count" style="font-size:1.3rem; color:var(--text-light); margin:2px 0 0; font-weight:700; font-family:var(--font-sans);">0</h4>
         </div>
-        <div style="background:var(--chocolate-mid); border:1px solid rgba(197,160,89,0.15); padding:15px; border-radius:12px; text-align:center; box-shadow:var(--shadow-luxury);">
-          <i class="fas fa-heart" style="color:var(--rose-accent); font-size:1.3rem; margin-bottom:5px; display:block;"></i>
-          <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:600;">Favorite</span>
-          <h4 style="font-size:1.05rem; color:var(--text-light); margin:10px 0 0; font-weight:700; font-family:var(--font-sans); white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">Custom Cake</h4>
+        <div style="background:var(--chocolate-mid); border:1px solid rgba(197,160,89,0.15); padding:10px; border-radius:10px; text-align:center; box-shadow:var(--shadow-luxury);">
+          <i class="fas fa-crown" style="color:#FFD700; font-size:1.1rem; margin-bottom:3px; display:block;"></i>
+          <span style="font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; font-weight:600;">Meetha Points</span>
+          <h4 id="profile-points-count" style="font-size:1.3rem; color:var(--gold-primary); margin:2px 0 0; font-weight:700; font-family:var(--font-sans);">0 PTS</h4>
         </div>
       </div>
 
+      <!-- Meetha Loyalty Rewards Banner -->
+      <div style="background: linear-gradient(135deg, rgba(197,160,89,0.12) 0%, rgba(184,141,139,0.12) 100%); border:1px solid rgba(197,160,89,0.3); margin:0 30px 12px; border-radius:10px; padding:10px 12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+          <span style="font-size:0.78rem; font-weight:700; color:var(--gold-primary);"><i class="fas fa-gift" style="color:#FFD700;"></i> Meetha Rewards</span>
+          <span id="profile-reward-badge" style="font-size:0.68rem; background:rgba(197,160,89,0.2); color:var(--gold-primary); padding:2px 6px; border-radius:8px; font-weight:600;">Level 1</span>
+        </div>
+        <div style="width:100%; height:5px; background:var(--chocolate-light); border-radius:3px; overflow:hidden; margin-bottom:5px;">
+          <div id="profile-reward-bar" style="width:0%; height:100%; background:linear-gradient(90deg, var(--gold-primary), #25d366); transition:width 0.4s;"></div>
+        </div>
+        <span id="profile-reward-text" style="font-size:0.7rem; color:var(--text-muted); display:block;">100 pts per FREE Brownie Box! 🎁</span>
+      </div>
+
+      <!-- Saved Address & Birthday Reminders Accordions -->
+      <div style="padding:0 30px 10px; display:flex; flex-direction:column; gap:8px;">
+        
+        <!-- Saved Address Block -->
+        <details style="background:var(--chocolate-mid); border:1px solid rgba(197,160,89,0.15); border-radius:8px; padding:8px 12px;">
+          <summary style="font-size:0.8rem; font-weight:600; color:var(--text-light); cursor:pointer; display:flex; align-items:center; justify-content:space-between; list-style:none;">
+            <span><i class="fas fa-map-marker-alt" style="color:var(--gold-primary); margin-right:6px;"></i> Saved Delivery Address & Notes</span>
+            <i class="fas fa-chevron-down" style="font-size:0.65rem; color:var(--text-muted);"></i>
+          </summary>
+          <div style="margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+            <input type="text" id="profile-address-input" placeholder="Arifwala Delivery Address (e.g. Street #4, College Road)" style="width:100%; padding:7px 10px; font-size:0.78rem; background:var(--chocolate-light); border:1px solid var(--chocolate-light); color:var(--text-light); border-radius:6px;">
+            <input type="text" id="profile-note-input" placeholder="Default Cake Message (e.g. Happy Birthday)" style="width:100%; padding:7px 10px; font-size:0.78rem; background:var(--chocolate-light); border:1px solid var(--chocolate-light); color:var(--text-light); border-radius:6px;">
+            <button onclick="saveCustomerPreferences()" style="padding:6px; background:var(--gold-primary); color:var(--text-light); border:none; border-radius:6px; font-weight:600; font-size:0.75rem; cursor:pointer;"><i class="fas fa-save"></i> Save Address</button>
+          </div>
+        </details>
+
+        <!-- Birthday Reminders Block -->
+        <details style="background:var(--chocolate-mid); border:1px solid rgba(197,160,89,0.15); border-radius:8px; padding:8px 12px;">
+          <summary style="font-size:0.8rem; font-weight:600; color:var(--text-light); cursor:pointer; display:flex; align-items:center; justify-content:space-between; list-style:none;">
+            <span><i class="fas fa-birthday-cake" style="color:var(--rose-accent); margin-right:6px;"></i> Birthday & Event Reminders</span>
+            <i class="fas fa-chevron-down" style="font-size:0.65rem; color:var(--text-muted);"></i>
+          </summary>
+          <div style="margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; gap:6px;">
+              <input type="text" id="reminder-name-input" placeholder="Name (e.g. Ahmad's Birthday)" style="flex:1; padding:6px; font-size:0.75rem; background:var(--chocolate-light); border:1px solid var(--chocolate-light); color:var(--text-light); border-radius:6px;">
+              <input type="date" id="reminder-date-input" style="padding:6px; font-size:0.72rem; background:var(--chocolate-light); border:1px solid var(--chocolate-light); color:var(--text-light); border-radius:6px;">
+              <button onclick="addBirthdayReminder()" style="padding:6px 10px; background:var(--rose-accent); color:#fff; border:none; border-radius:6px; font-weight:600; font-size:0.75rem; cursor:pointer;">Add</button>
+            </div>
+            <div id="reminders-list" style="display:flex; flex-direction:column; gap:4px; margin-top:4px;">
+              <!-- Reminders list dynamically rendered -->
+            </div>
+          </div>
+        </details>
+
+      </div>
+
       <!-- Order History Section -->
-      <div style="padding:15px 30px 25px; flex:1; display:flex; flex-direction:column; overflow:hidden;">
-        <h4 style="color:var(--text-light); font-family:var(--font-serif); margin-bottom:15px; border-bottom:1.5px solid var(--chocolate-light); padding-bottom:8px; font-size:1.15rem; display:flex; align-items:center; gap:8px;">
-          <i class="fas fa-history" style="color:var(--gold-primary);"></i> Aap ki Order Timeline
+      <div style="padding:10px 30px 20px; flex:1; display:flex; flex-direction:column; overflow:hidden;">
+        <h4 style="color:var(--text-light); font-family:var(--font-serif); margin-bottom:12px; border-bottom:1.5px solid var(--chocolate-light); padding-bottom:6px; font-size:1.05rem; display:flex; align-items:center; gap:8px;">
+          <i class="fas fa-history" style="color:var(--gold-primary);"></i> Live Order Tracker & History
         </h4>
         
         <!-- Timeline wrapper -->
-        <div id="customer-orders-list" style="flex:1; overflow-y:auto; padding-right:5px; position:relative; min-height:180px; margin-bottom:20px;">
+        <div id="customer-orders-list" style="flex:1; overflow-y:auto; padding-right:5px; position:relative; min-height:160px; margin-bottom:15px;">
           <!-- JS will render dynamic timeline items -->
         </div>
 
         <!-- Buttons Section -->
-        <div style="padding-top:20px; border-top:1.5px solid var(--chocolate-light); display:flex; flex-direction:column; gap:10px;">
-          <a href="#order" onclick="closeProfilePanel()" class="btn-primary" style="display:flex; justify-content:center; align-items:center; gap:10px; text-decoration:none; padding:15px; font-weight:600; font-size:0.95rem; border-radius:30px; letter-spacing:1px; box-shadow:var(--shadow-gold);">
+        <div style="padding-top:15px; border-top:1.5px solid var(--chocolate-light); display:flex; flex-direction:column; gap:8px;">
+          <a href="#order" onclick="closeProfilePanel()" class="btn-primary" style="display:flex; justify-content:center; align-items:center; gap:10px; text-decoration:none; padding:13px; font-weight:600; font-size:0.9rem; border-radius:30px; letter-spacing:1px; box-shadow:var(--shadow-gold);">
             <i class="fas fa-plus"></i> NAYA CAKE ORDER KAREIN
           </a>
-          <button onclick="customerLogout()" style="width:100%; padding:12px; background:transparent; border:1.5px solid var(--rose-accent); color:var(--rose-accent); border-radius:30px; font-weight:600; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; justify-content:center; gap:8px; transition:var(--transition-smooth);" onmouseover="this.style.background='rgba(184,141,139,0.08)'" onmouseout="this.style.background='transparent'">
+          <button onclick="customerLogout()" style="width:100%; padding:10px; background:transparent; border:1.5px solid var(--rose-accent); color:var(--rose-accent); border-radius:30px; font-weight:600; cursor:pointer; font-size:0.82rem; display:flex; align-items:center; justify-content:center; gap:8px; transition:var(--transition-smooth);" onmouseover="this.style.background='rgba(184,141,139,0.08)'" onmouseout="this.style.background='transparent'">
             <i class="fas fa-sign-out-alt"></i> Logout
           </button>
         </div>
